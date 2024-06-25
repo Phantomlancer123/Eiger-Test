@@ -33,4 +33,23 @@ exports.getTrades = async (req, res) => {
     } catch (error) {
       res.status(500).send();
     }
-  };
+};
+
+exports.getTradeById = async (req, res) => {
+    try {
+      const trade = await Trade.findByPk(req.params.id);
+  
+      if (!trade) {
+        return res.status(404).send('ID not found');
+      }
+  
+      res.status(200).json(trade);
+    } catch (error) {
+      res.status(500).send();
+    }
+};
+
+exports.methodNotAllowed = (req, res) => {
+    res.status(405).send();
+};
+  
